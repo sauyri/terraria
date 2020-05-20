@@ -7,7 +7,7 @@ RUN apk add --update-cache \
 RUN curl -s https://api.github.com/repos/pryaxis/tshock/releases | jq --raw-output '.[0].assets[0].browser_download_url' | xargs -n1 curl -L -o terrariaserver.zip
 RUN unzip terrariaserver.zip -d /tshock && \
     rm terrariaserver.zip && \
-    chmod +x /tshock/tshock/TerrariaServer.exe
+    chmod +x /tshock/TerrariaServer.exe
 
 # Add bootstrap.sh and make sure it's executable.
 # This will be pulled into the final stage.
