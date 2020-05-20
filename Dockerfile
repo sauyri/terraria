@@ -4,7 +4,7 @@ RUN apk add --update-cache \
     unzip curl jq
 
 # Download and install TShock
-RUN curl -s "https://api.github.com/repos/pryaxis/tshock/releases" | jq -r '.[0].assets' | grep 'browser_download_url' | curl -o terrariaserver.zip /
+RUN curl -o terrariaserver.zip -s "https://api.github.com/repos/pryaxis/tshock/releases" | jq -r '.[0].assets' | grep 'browser_download_url'
 RUN unzip terrariaserver.zip -d /tshock && \
     rm terrariaserver.zip && \
     chmod +x /tshock/tshock/TerrariaServer.exe
