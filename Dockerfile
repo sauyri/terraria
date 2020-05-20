@@ -12,7 +12,7 @@ RUN unzip terrariaserver.zip -d /tshock && \
 # Add bootstrap.sh and make sure it's executable.
 # This will be pulled into the final stage.
 ADD bootstrap.sh .
-ADD serverconfig.sh .
+ADD serverconfig.txt .
 RUN chmod +x bootstrap.sh
 
 FROM mono:6.8.0.96-slim
