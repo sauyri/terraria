@@ -4,4 +4,4 @@ echo "\nBootstrap:\nconfigpath=$CONFIGPATH\nworldpath=$WORLDPATH\nlogpath=$LOGPA
 echo "Copying plugins..."
 cp -Rfv /plugins/* ./ServerPlugins
 
-mono --server --gc=sgen -O=all TerrariaServer.exe -configPath "$CONFIGPATH" -worldpath "$WORLDPATH" -logpath "$LOGPATH" -config "serverconfig.txt" "$@" 
+mono --server --gc=sgen -O=all TerrariaServer.exe -configPath "/world" -worldpath "/world" -logpath "/tshock/log" -config "/world/serverconfig.txt" "$@" 
