@@ -1,10 +1,10 @@
 FROM alpine:3.11.6 AS base
 
 RUN apk add --update-cache \
-    unzip curl
+    unzip curl jq
 
 # Download and install TShock
-RUN curl -s "https://api.github.com/repos/pryaxis/tshock/releases" | jq -r '.[0].assets' | grep 'browser_download_url' | cut -d / -f9 | tr -d \"| xargs -n 1 | curl -o terrariaserver.zip /
+RUN curl -s "https://api.github.com/repos/pryaxis/tshock/releases" | jq -r '.[0].assets' | grep 'browser_download_url' | cut -d / -f9 | tr -d \"| xargs -n 1 curl -o terrariaserver.zip /
 RUN unzip terrariaserver.zip -d /tshock && \
     rm terrariaserver.zip && \
     chmod +x /tshock/tshock/TerrariaServer.exe
