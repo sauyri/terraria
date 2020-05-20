@@ -55,5 +55,3 @@ USER terraria
 
 # run the bootstrap, which will copy the TShockAPI.dll before starting the server
 ENTRYPOINT [ "/bin/sh", "bootstrap.sh" ]
-
-curl -s -L https://github.com/pryaxis/tshock/releases | egrep -o '/pryaxis/tshock/releases/download/[0-9]*/v*' | wget --base=http://github.com/ -i - -O terraria.zip
