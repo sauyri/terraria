@@ -54,5 +54,7 @@ WORKDIR /tshock
 
 USER terraria
 
+CMD [ "-config /tshock/serverconfig.txt" ]
+
 # run the bootstrap, which will copy the TShockAPI.dll before starting the server
 ENTRYPOINT [ "/bin/sh", "bootstrap.sh" ]
