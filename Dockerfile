@@ -31,9 +31,10 @@ RUN groupadd -r terraria && \
     # install nuget to grab tshock dependencies
     apt-get update -y && \
     apt-get install -y nuget && \
-    rm -rf /var/lib/apt/lists/* /tmp/* && \
+    rm -rf /var/lib/apt/lists/* /tmp/*
+
     # create directories
-    mkdir /tshock && \
+RUN mkdir /tshock && \
     mkdir /world && \
     mkdir /plugins && \
     mkdir -p /tshock/logs && \
@@ -43,7 +44,7 @@ RUN groupadd -r terraria && \
 COPY --chown=terraria:terraria --from=base bootstrap.sh /tshock/bootstrap.sh
 
 # copy game files
-#COPY --chown=terraria:terraria --from=base /tshock/* /tshock/
+COPY --chown=terraria:terraria --from=base /tshock/* /tshock/
 
 # Allow for external data
 VOLUME ["/world", "/tshock/logs", "/plugins"]
