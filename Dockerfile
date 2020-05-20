@@ -22,7 +22,7 @@ LABEL maintainer="Ryan Sheehan <rsheehan@gmail.com>"
 EXPOSE 7777 7878
 
 ENV WORLDPATH=/world
-ENV CONFIGPATH=/world
+ENV CONFIGPATH=/tshock
 ENV LOGPATH=/tshock/logs
 
 # add terraria user to run as
