@@ -23,7 +23,7 @@ LABEL maintainer="Ryan Sheehan <rsheehan@gmail.com>"
 EXPOSE 7777 7878
 
 ENV WORLDPATH=/world
-ENV CONFIGPATH=/config
+ENV CONFIGPATH=/world
 ENV LOGPATH=/tshock/logs
 
 # add terraria user to run as
@@ -44,7 +44,7 @@ RUN mkdir /tshock && \
 
 # copy in bootstrap
 COPY --chown=terraria:terraria --from=base bootstrap.sh /tshock/bootstrap.sh
-COPY --chown=terraria:terraria --from=base serverconfig.txt /tshock/serverconfig.txt
+COPY --chown=terraria:terraria --from=base serverconfig.txt /world/serverconfig.txt
 
 # copy game files
 COPY --chown=terraria:terraria --from=base /tshock/* /tshock/
@@ -57,7 +57,7 @@ WORKDIR /tshock
 
 USER terraria
 
-CMD [ "-config /tshock/serverconfig.txt" ]
+CMD [ "-config /world/serverconfig.txt" ]
 
 # run the bootstrap, which will copy the TShockAPI.dll before starting the server
 ENTRYPOINT [ "/bin/sh", "bootstrap.sh" ]
