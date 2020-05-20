@@ -12,6 +12,7 @@ RUN unzip terrariaserver.zip -d /tshock && \
 # Add bootstrap.sh and make sure it's executable.
 # This will be pulled into the final stage.
 ADD bootstrap.sh .
+ADD serverconfig.sh .
 RUN chmod +x bootstrap.sh
 
 FROM mono:6.8.0.96-slim
@@ -22,7 +23,7 @@ LABEL maintainer="Ryan Sheehan <rsheehan@gmail.com>"
 EXPOSE 7777 7878
 
 ENV WORLDPATH=/world
-ENV CONFIGPATH=/tshock
+ENV CONFIGPATH=/config
 ENV LOGPATH=/tshock/logs
 
 # add terraria user to run as
@@ -36,12 +37,14 @@ RUN groupadd -r terraria && \
     # create directories
 RUN mkdir /tshock && \
     mkdir /world && \
+    mkdir /config && \
     mkdir /plugins && \
     mkdir -p /tshock/logs && \
     chown -R terraria:terraria /tshock /world /plugins
 
 # copy in bootstrap
 COPY --chown=terraria:terraria --from=base bootstrap.sh /tshock/bootstrap.sh
+COPY --chown=terraria:terraria --from=base serverconfig.txt /config/serverconfig.txt
 
 # copy game files
 COPY --chown=terraria:terraria --from=base /tshock/* /tshock/
