@@ -4,7 +4,7 @@ RUN apk add --update-cache \
     unzip curl jq
 
 # Download and install TShock
-RUN curl -s "https://api.github.com/repos/pryaxis/tshock/releases" | jq -r '.[0].assets[0].browser_download_url' | xargs -n 1 curl -o terrariaserver.zip
+RUN curl -s https://api.github.com/repos/pryaxis/tshock/releases | jq --raw-output '.[0].assets[0].browser_download_url' | xargs -n1 curl -L -o terraria.zip
 RUN unzip terrariaserver.zip -d /tshock && \
     rm terrariaserver.zip && \
     chmod +x /tshock/tshock/TerrariaServer.exe
@@ -55,3 +55,5 @@ USER terraria
 
 # run the bootstrap, which will copy the TShockAPI.dll before starting the server
 ENTRYPOINT [ "/bin/sh", "bootstrap.sh" ]
+
+curl -s -L https://github.com/pryaxis/tshock/releases | egrep -o '/pryaxis/tshock/releases/download/[0-9]*/v*' | wget --base=http://github.com/ -i - -O terraria.zip
