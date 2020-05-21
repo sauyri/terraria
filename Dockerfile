@@ -27,7 +27,7 @@ RUN groupadd -r terraria && \
     useradd -m -r -g terraria terraria && \
     # install nuget to grab tshock dependencies
     apt-get update -y && \
-    apt-get install -y nuget && \
+    apt-get install -y nuget nano && \
     rm -rf /var/lib/apt/lists/* /tmp/*
 
     # create directories

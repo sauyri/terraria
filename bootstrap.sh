@@ -5,17 +5,20 @@ echo "Copying plugins..."
 cp -Rfv /plugins/* /tshock/ServerPlugins
 
 echo "Moving plugins..."
-if [ -f "/tshock/BCrypt.Net.dll"]; then
-	mv /tshock/BCrypt.Net.dll /tshock/ServerPlugins/BCrypt.Net.dll
+if [ -f "BCrypt.Net.dll"]; then
+	mv BCrypt.Net.dll ServerPlugins/
 fi
-if [ -f "/tshock/HttpServer.dll"]; then
-	mv /tshock/HttpServer.dll /tshock/ServerPlugins/HttpServer.dll
+if [ -f "HttpServer.dll"]; then
+	mv HttpServer.dll ServerPlugins/
 fi
-if [ -f "/tshock/Mono.Data.Sqlite.dll"]; then
-	mv /tshock/Mono.Data.Sqlite.dll /tshock/ServerPlugins/Mono.Data.Sqlite.dll
+if [ -f "Mono.Data.Sqlite.dll"]; then
+	mv /tshock/Mono.Data.Sqlite.dll ServerPlugins/
 fi
-if [ -f "/tshock/MySql.Data.dll"]; then
-	mv /tshock/MySql.Data.dll /tshock/ServerPlugins/MySql.Data.dll
+if [ -f "MySql.Data.dll"]; then
+	mv MySql.Data.dll ServerPlugins/
+fi
+if [ -f "TShockAPI.dll"]; then
+	mv TShockAPI.dll ServerPlugins/
 fi
 
 mono --server --gc=sgen -O=all TerrariaServer.exe -configPath "/world" -worldpath "/world" -logpath "/log" -config "/world/serverconfig.txt" "$@" 
