@@ -5,19 +5,19 @@ echo "Copying plugins..."
 cp -Rfv /plugins/* /tshock/ServerPlugins
 
 echo "Moving plugins..."
-if [ -f "BCrypt.Net.dll"]; then
+if [ -f "BCrypt.Net.dll" ]; then
 	mv BCrypt.Net.dll ServerPlugins/
 fi
-if [ -f "HttpServer.dll"]; then
+if [ -f "HttpServer.dll" ]; then
 	mv HttpServer.dll ServerPlugins/
 fi
-if [ -f "Mono.Data.Sqlite.dll"]; then
-	mv /tshock/Mono.Data.Sqlite.dll ServerPlugins/
+if [ -f "Mono.Data.Sqlite.dll" ]; then
+	mv Mono.Data.Sqlite.dll ServerPlugins/
 fi
-if [ -f "MySql.Data.dll"]; then
+if [ -f "MySql.Data.dll" ]; then
 	mv MySql.Data.dll ServerPlugins/
 fi
-if [ -f "TShockAPI.dll"]; then
+if [ -f "TShockAPI.dll" ]; then
 	mv TShockAPI.dll ServerPlugins/
 fi
 
