@@ -48,20 +48,13 @@ COPY --chown=terraria:terraria --from=base serverconfig.txt /world/serverconfig.
 # copy game files
 COPY --chown=terraria:terraria --from=base /tshock/* /tshock/
 
-RUN mv /tshock/BCrypt.Net.dll /tshock/ServerPlugins/BCrypt.Net.dll && \
-    mv /tshock/HttpServer.dll /tshock/ServerPlugins/HttpServer.dll && \
-    mv /tshock/Mono.Data.Sqlite.dll /tshock/ServerPlugins/Mono.Data.Sqlite.dll && \
-    mv /tshock/MySql.Data.dll /tshock/ServerPlugins/MySql.Data.dll
-
 # Allow for external data
-#VOLUME ["/world", "/tshock", "/plugins"]
+VOLUME ["/world", "/tshock", "/plugins"]
 
 # Set working directory to server
 WORKDIR /tshock
 
 USER terraria
-
-#CMD [ "-config /world/serverconfig.txt" ]
 
 # run the bootstrap, which will copy the TShockAPI.dll before starting the server
 ENTRYPOINT [ "/bin/sh", "bootstrap.sh" ]
