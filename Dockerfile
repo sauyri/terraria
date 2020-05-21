@@ -49,7 +49,7 @@ COPY --chown=terraria:terraria --from=base serverconfig.txt /world/serverconfig.
 COPY --chown=terraria:terraria --from=base /tshock/* /tshock/
 
 # Allow for external data
-VOLUME ["/world", "/tshock", "/plugins"]
+VOLUME /world /tshock /plugins /log
 
 # Set working directory to server
 WORKDIR /tshock
