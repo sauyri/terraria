@@ -31,10 +31,13 @@ RUN groupadd -r terraria && \
     rm -rf /var/lib/apt/lists/* /tmp/*
 
     # create directories
-RUN mkdir -m 777 /tshock /world /plugins /log && \
-    chown -R terraria:terraria /tshock && \
-    chown -R terraria:terraria /world && \
-    chown -R terraria:terraria /plugins
+RUN mkdir -m 777 /tshock 
+RUN mkdir -m 777 /world
+RUN mkdir -m 777 /plugins 
+RUN mkdir -m 777 /log
+RUN chown -R terraria:terraria /tshock
+RUN chown -R terraria:terraria /world
+RUN chown -R terraria:terraria /plugins
 
 # copy in bootstrap
 COPY --chown=terraria:terraria --from=base bootstrap.sh /tshock/bootstrap.sh
@@ -42,8 +45,8 @@ COPY --chown=terraria:terraria --from=base serverconfig.txt /world/serverconfig.
 
 # copy game files
 COPY --chown=terraria:terraria --from=base /tshock/* /tshock/
-COPY --chown=terraria:terraria --from=base /tshock/BCrypt.Net.dll /tshock/
-COPY --chown=terraria:terraria --from=base /tshock/HttpServer.dll /tshock/ServerPlugins/BCrypt.Net.dll
+COPY --chown=terraria:terraria --from=base /tshock/BCrypt.Net.dll /tshock/ServerPlugins/BCrypt.Net.dll
+COPY --chown=terraria:terraria --from=base /tshock/HttpServer.dll /tshock/ServerPlugins/HttpServer.dll
 COPY --chown=terraria:terraria --from=base /tshock/Mono.Data.Sqlite.dll /tshock/ServerPlugins/Mono.Data.Sqlite.dll
 COPY --chown=terraria:terraria --from=base /tshock/MySql.Data.dll /tshock/ServerPlugins/MySql.Data.dll
 
