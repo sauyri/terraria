@@ -38,6 +38,7 @@ RUN mkdir -m 777 /log
 RUN chown -R terraria:terraria /tshock
 RUN chown -R terraria:terraria /world
 RUN chown -R terraria:terraria /plugins
+RUN chown -R terraria:terraria /log
 
 # copy in bootstrap
 COPY --chown=terraria:terraria --from=base bootstrap.sh /tshock/bootstrap.sh
@@ -45,10 +46,11 @@ COPY --chown=terraria:terraria --from=base serverconfig.txt /world/serverconfig.
 
 # copy game files
 COPY --chown=terraria:terraria --from=base /tshock/* /tshock/
-COPY --chown=terraria:terraria --from=base /tshock/BCrypt.Net.dll /tshock/ServerPlugins/BCrypt.Net.dll
-COPY --chown=terraria:terraria --from=base /tshock/HttpServer.dll /tshock/ServerPlugins/HttpServer.dll
-COPY --chown=terraria:terraria --from=base /tshock/Mono.Data.Sqlite.dll /tshock/ServerPlugins/Mono.Data.Sqlite.dll
-COPY --chown=terraria:terraria --from=base /tshock/MySql.Data.dll /tshock/ServerPlugins/MySql.Data.dll
+
+RUN mv /tshock/BCrypt.Net.dll /tshock/ServerPlugins/BCrypt.Net.dll && \
+    mv /tshock/HttpServer.dll /tshock/ServerPlugins/HttpServer.dll && \
+    mv /tshock/Mono.Data.Sqlite.dll /tshock/ServerPlugins/Mono.Data.Sqlite.dll && \
+    mv /tshock/MySql.Data.dll /tshock/ServerPlugins/MySql.Data.dll
 
 # Allow for external data
 #VOLUME ["/world", "/tshock", "/plugins"]
