@@ -47,7 +47,7 @@ RUN mkdir /tshock && \
     chown -R terraria:terraria /tshock /world /plugins
 
 # copy in bootstrap
-COPY --chown=terraria:terraria --from=base bootstrap.sh /tshock/bootstrap.sh
+COPY --chown=terraria:terraria --from=base bootstrap.sh ./bootstrap.sh
 COPY --chown=terraria:terraria --from=base serverconfig.txt /world/serverconfig.txt
 
 # copy game files
