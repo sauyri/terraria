@@ -31,12 +31,10 @@ RUN groupadd -r terraria && \
     rm -rf /var/lib/apt/lists/* /tmp/*
 
     # create directories
-RUN mkdir /tshock && \
-    mkdir /world && \
-    mkdir /config && \
-    mkdir /plugins && \
-    mkdir -p /tshock/logs && \
-    chown -R terraria:terraria /tshock /world /plugins
+RUN mkdir -m 777 /tshock /world /plugins /log && \
+    chown -R terraria:terraria /tshock && \
+    chown -R terraria:terraria /world && \
+    chown -R terraria:terraria /plugins
 
 # copy in bootstrap
 COPY --chown=terraria:terraria --from=base bootstrap.sh /tshock/bootstrap.sh
