@@ -48,7 +48,7 @@ COPY --chown=terraria:terraria --from=base /tshock/Mono.Data.Sqlite.dll /tshock/
 COPY --chown=terraria:terraria --from=base /tshock/MySql.Data.dll /tshock/ServerPlugins/MySql.Data.dll
 
 # Allow for external data
-VOLUME ["/world", "/tshock", "/plugins"]
+#VOLUME ["/world", "/tshock", "/plugins"]
 
 # Set working directory to server
 WORKDIR /tshock
