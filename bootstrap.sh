@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "\nBootstrap:\nconfigpath=$CONFIGPATH\nworldpath=$WORLDPATH\nlogpath=$LOGPATH\n"
+echo "\nBootstrap:\nconfigpath=/world\nworldpath=/world\nlogpath=/log\n"
 echo "Copying plugins..."
 cp -Rfv /plugins/* ./tshock/ServerPlugins
 

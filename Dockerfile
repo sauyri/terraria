@@ -1,7 +1,7 @@
 FROM alpine:3.11.6 AS base
 
 RUN apk add --update-cache \
-    unzip curl jq
+    unzip curl jq nano
 
 # Download and install TShock
 RUN curl -s https://api.github.com/repos/pryaxis/tshock/releases | jq --raw-output '.[0].assets[0].browser_download_url' | xargs -n1 curl -L -o terrariaserver.zip
@@ -25,10 +25,6 @@ LABEL maintainer="Ryan Sheehan <rsheehan@gmail.com>"
 
 # documenting ports
 EXPOSE 7777 7878
-
-ENV WORLDPATH=/world
-ENV CONFIGPATH=/world
-ENV LOGPATH=/tshock/logs
 
 # add terraria user to run as
 RUN groupadd -r terraria && \
