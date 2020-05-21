@@ -32,6 +32,7 @@ RUN groupadd -r terraria && \
 
     # create directories
 RUN mkdir -m 777 /tshock 
+RUN mkdir -m 777 /tshock/ServerPlugins
 RUN mkdir -m 777 /world
 RUN mkdir -m 777 /plugins 
 RUN mkdir -m 777 /log
