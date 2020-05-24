@@ -25,19 +25,19 @@
 #remove the # in front of commands to enable them.
 
 #Load a world and automatically start the server.
-world=/world/world1.wld
+#world=/root/.local/share/Terraria/Worlds/world1.wld
 
 #Creates a new world if none is found. World size is specified by: 1(small), 2(medium), and 3(large).
 autocreate=3
 
 #Sets the world seed when using autocreate
-seed=48976816
+seed=9768164894
 
 #Sets the name of the world when using autocreate
 worldname=F5-Terraria
 
 #Sets the difficulty of the world when using autocreate 0(classic), 1(expert), 2(master), 3(journey)
-difficulty=1
+difficulty=2
 
 #Sets the max number of players allowed on a server.  Value must be between 1 and 255
 maxplayers=16
