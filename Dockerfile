@@ -18,7 +18,7 @@ RUN mkdir /tmp/terraria && \
     curl -sL https://www.terraria.org/system/dedicated_servers/archives/000/000/038/original/terraria-server-1404.zip?1590253816 --output terraria-server.zip && \
     unzip -q terraria-server.zip && \
     mv */Linux /vanilla
-COPY ./serverconfig.txt /tmp/terraria/Windows/serverconfig-default.txt
+COPY ./serverconfig.txt /tmp/terraria/*/Windows/serverconfig-default.txt
 RUN mv */Windows/serverconfig.txt /vanilla/serverconfig-default.txt && \
     rm -R /tmp/* && \
     chmod +x /vanilla/TerrariaServer* && \
