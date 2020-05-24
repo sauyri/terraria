@@ -1,5 +1,3 @@
-FROM mono as BASE
-
 FROM mono:slim
 
 # Update and install needed utils
