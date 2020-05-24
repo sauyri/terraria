@@ -13,8 +13,7 @@ if [ ! -f "/config/banlist.txt" ]; then
 fi
 
 # Link Worlds folder to /config so it will save to the correct location
-if [ ! -s "/root/.local/share/Terraria/Worlds" ]; then
-    mkdir -p /root/.local/share/Terraria
+if [ ! -s "/world" ]; then
     ln -sT /config /world
 fi
 
