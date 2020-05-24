@@ -17,13 +17,7 @@ if [ ! -s "/world" ]; then
     ln -sT /config /world
 fi
 
-# Pass in world if set
-if [ "${world:-null}" != null ]; then
-    if [ ! -f "/config/$world" ]; then
-        echo "World file does not exist! Quitting..."
-        exit 1
-    fi
-    CMD="$CMD -world /config/$world"
-fi
+world=$(find /config -type f -name "*.wld")
+CMD="$CMD -world $world"
 
 exec $CMD $@
