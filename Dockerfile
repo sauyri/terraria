@@ -1,60 +1,38 @@
-FROM alpine:3.11.6 AS base
+FROM mono:slim
 
-RUN apk add --update-cache \
-    unzip curl jq nano
+# Update and install needed utils
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y curl nuget nano zip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Download and install TShock
-RUN curl -s https://api.github.com/repos/pryaxis/tshock/releases | jq --raw-output '.[0].assets[0].browser_download_url' | xargs -n1 curl -L -o terrariaserver.zip
-RUN unzip terrariaserver.zip -d /tshock && \
-    rm terrariaserver.zip && \
-    chmod +x /tshock/TerrariaServer.exe
+# fix for favorites.json error
+RUN favorites_path="/root/My Games/Terraria" && mkdir -p "$favorites_path" && echo "{}" > "$favorites_path/favorites.json"
 
-# Add bootstrap.sh and make sure it's executable.
-# This will be pulled into the final stage.
-ADD bootstrap.sh .
-ADD serverconfig.txt .
-RUN chmod +x bootstrap.sh
+# Download and install Vanilla Server
+# ENV VANILLA_VERSION=1404
 
-FROM mono:6.8.0.96-slim
+RUN mkdir /tmp/terraria && \
+    cd /tmp/terraria && \
+    curl -sL https://www.terraria.org/system/dedicated_servers/archives/000/000/038/original/terraria-server-1404.zip?1590253816 --output terraria-server.zip && \
+    unzip -q terraria-server.zip && \
+    mv */Linux /vanilla && \
+    mv */Windows/serverconfig.txt /vanilla/serverconfig-default.txt && \
+    rm -R /tmp/* && \
+    chmod +x /vanilla/TerrariaServer* && \
+    if [ ! -f /vanilla/TerrariaServer ]; then echo "Missing /vanilla/TerrariaServer"; exit 1; fi
 
-LABEL maintainer="Ryan Sheehan <rsheehan@gmail.com>"
+COPY run-vanilla.sh /vanilla/run.sh
 
-# documenting ports
-EXPOSE 7777 7878
-
-# add terraria user to run as
-RUN groupadd -r terraria && \
-    useradd -m -r -g terraria terraria && \
-    # install nuget to grab tshock dependencies
-    apt-get update -y && \
-    apt-get install -y nuget nano curl wget && \
-    rm -rf /var/lib/apt/lists/* /tmp/*
-
-    # create directories
-RUN mkdir -m 777 /tshock 
-RUN mkdir -m 777 /tshock/ServerPlugins
-RUN mkdir -m 777 /world
-RUN mkdir -m 777 /plugins 
-RUN mkdir -m 777 /log
-RUN chown -R terraria:terraria /tshock
-RUN chown -R terraria:terraria /world
-RUN chown -R terraria:terraria /plugins
-RUN chown -R terraria:terraria /log
-
-# copy in bootstrap
-COPY --chown=terraria:terraria --from=base bootstrap.sh /tshock/bootstrap.sh
-COPY --chown=terraria:terraria --from=base serverconfig.txt /world/serverconfig.txt
-
-# copy game files
-COPY --chown=terraria:terraria --from=base /tshock/* /tshock/
+# Commit Hash Metadata
+ARG VCS_REF
+LABEL org.label-schema.vcs-ref=$VCS_REF \
+    org.label-schema.vcs-url="https://github.com/beardedio/terraria"
 
 # Allow for external data
-VOLUME /world /tshock /plugins /log
+VOLUME ["/config"]
 
-# Set working directory to server
-WORKDIR /tshock
-
-USER terraria
-
-# run the bootstrap, which will copy the TShockAPI.dll before starting the server
-ENTRYPOINT [ "/bin/sh", "bootstrap.sh" ]
+# Run the server
+WORKDIR /vanilla
+CMD ["./run.sh"]
