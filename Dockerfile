@@ -19,7 +19,8 @@ RUN mkdir /tmp/terraria && \
     unzip -q terraria-server.zip && \
     mv */Linux /vanilla
 COPY ./serverconfig.txt /tmp/terraria/Windows/serverconfig-default.txt
-RUN rm -R /tmp/* && \
+RUN mv */Windows/serverconfig.txt /vanilla/serverconfig-default.txt && \
+    rm -R /tmp/* && \
     chmod +x /vanilla/TerrariaServer* && \
     if [ ! -f /vanilla/TerrariaServer ]; then echo "Missing /vanilla/TerrariaServer"; exit 1; fi
 
